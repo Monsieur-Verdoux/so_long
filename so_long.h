@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/15 16:54:57 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/15 18:49:45 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_map
 	const char	*filename;
 	char		**grid;
 	int			i;
+	int			line_count;
+	size_t		line_length;
 }	t_map;
 
 int	validate_map(t_map *map);
