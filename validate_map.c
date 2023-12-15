@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/15 18:08:47 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/15 19:22:34 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,69 @@
 
 void	free_map(t_map *map)
 {
-	for (int row = 0; row < map->i; row++)
+	int	row;
+
+	row = 0;
+	while (row < map->i)
 	{
 		free(map->grid[row]);
+		row++;
 	}
 	free(map->grid);
 }
 
-void	populate_map(t_map *map, size_t line_count)
+// int	check_lines (t_map *map)
+// {
+	
+// }
+
+int	populate_map(t_map *map)
 {
-	map->grid = (char **)malloc(line_count * sizeof(char *));
+	size_t		line_length;
+	size_t		i;
+
+	map->grid = (char **)malloc(map->line_count * sizeof(char *));
 	map->i = 0;
-	while (map->i < line_count)
+	while (map->i < map->line_count)
 	{
 		map->grid[map->i] = get_next_line(map->fd);
 		ft_printf("Line[%d]: %s\n", map->i, map->grid[map->i]);
 		map->i++;
 	}
-}
-
-int	count_characters(int fd)
-{
-	char	buffer[1];
-	int		bytes_read;
-	int		i;
-
-	bytes_read = 1;
 	i = 0;
-	while (bytes_read != 0)
+	map->line_length = ft_strlen(map->grid[i]);
+	ft_printf("First line length: %d\n\n", map->line_length);
+	while (i < map->i)
 	{
-		bytes_read = read(fd, buffer, 1);
-		i++;
-	}
-	return (i);
-}
-
-int	count_lines(int fd, size_t char_count)
-{
-	char	*buffer;
-	int		line_count;
-	int		bytes_read;
-	int		i;
-
-	buffer = (char *)malloc(char_count + 1);
-	i = 0;
-	line_count = 0;
-	bytes_read = read (fd, buffer, char_count);
-	while (i < bytes_read)
-	{
-		if (buffer[i] == '\n')
+		line_length = ft_strlen(map->grid[i]);
+		ft_printf("Current line length: %d\n\n", line_length);
+		if (line_length != map->line_length || map->grid[i][map->line_length - 1] != '\n')
 		{
-			line_count++;
+			ft_printf("Current character: %c\n\n", map->grid[i][map->line_length]);
+			return (0);
 		}
 		i++;
 	}
-	free(buffer);
-	return (line_count);
+	return (1);
+}
+
+int	count_lines(int fd, t_map *map)
+{
+	char	buffer[1];
+	int		bytes_read;
+
+	map->line_count = 0;
+	bytes_read = 1;
+	while (bytes_read != 0)
+	{
+		bytes_read = read(fd, buffer, 1);
+		if (bytes_read > 0 && buffer[0] == '\n')
+		{
+			map->line_count++;
+			ft_printf("Current line count is: %d\n\n", map->line_count);
+		}
+	}
+	return (map->line_count);
 }
 
 int	validate_map(t_map *map)
@@ -94,15 +101,16 @@ int	validate_map(t_map *map)
 		perror("Unable to open map file");
 		return (0);
 	}
-	char_count = count_characters(map->fd);
-	ft_printf("Character count is: %d\n", char_count);
+	char_count = count_lines(map->fd, map);
+	ft_printf("Line count is: %d\n", map->line_count);
 	close(map->fd);
 	map->fd = open(map->filename, O_RDONLY);
-	line_count = count_lines(map->fd, char_count);
-	ft_printf("Line count is: %d\n", line_count);
-	close(map->fd);
-	map->fd = open(map->filename, O_RDONLY);
-	populate_map(map, line_count);
+	if (!populate_map(map))
+	{
+		ft_printf("Invalid line map length\n\n");
+		free_map(map);
+		return (0);
+	}
 	free_map(map);
 	return (1);
 }
