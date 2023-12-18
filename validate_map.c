@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/15 19:22:34 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:27:53 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,39 @@ void	free_map(t_map *map)
 	free(map->grid);
 }
 
-// int	check_lines (t_map *map)
-// {
-	
-// }
+int	check_lines (t_map *map)
+{
+	int	i;
+	int	coll_count;
+	int	exit;
+	int	player;
+
+	i = 0;
+	exit = 0;
+	coll_count = 0;
+	player = 0;
+	while (i < map->i)
+	{
+		while (*map->grid[i])
+		{
+			ft_printf("Current line[%d]: %s\n", i, map->grid[i]);
+			ft_printf("\nCurrent character: %c\n, *map->grid[i]");
+			if (*map->grid[i] == 'C')
+				coll_count++;
+			if (*map->grid[i] == 'P')
+				player++;
+			if (*map->grid[i] == 'E')
+				exit++;
+			map->grid[i]++;
+			ft_printf("We got to here\n\n");
+		}
+		i++;
+	}
+	ft_printf("\nCurrent collectible count: %d\n", coll_count);
+	ft_printf("\nCurrent player count: %d\n", player);
+	ft_printf("\nCurrent exit count: %d\n", exit);
+	return (1);
+}
 
 int	populate_map(t_map *map)
 {
@@ -45,19 +74,25 @@ int	populate_map(t_map *map)
 	}
 	i = 0;
 	map->line_length = ft_strlen(map->grid[i]);
-	ft_printf("First line length: %d\n\n", map->line_length);
-	while (i < map->i)
+	ft_printf("\nFirst line length: %d\n\n", map->line_length);
+	while (i < map->i - 1)
 	{
 		line_length = ft_strlen(map->grid[i]);
 		ft_printf("Current line length: %d\n\n", line_length);
-		if (line_length != map->line_length || map->grid[i][map->line_length - 1] != '\n')
+		if (line_length != map->line_length)
 		{
-			ft_printf("Current character: %c\n\n", map->grid[i][map->line_length]);
 			return (0);
 		}
 		i++;
 	}
-	return (1);
+	if (i == map->i - 1)
+	{
+		line_length = ft_strlen(map->grid[i]);
+		if (line_length != map->line_length - 1)
+			return (0);
+		return (1);
+	}
+	return (0);
 }
 
 int	count_lines(int fd, t_map *map)
@@ -76,6 +111,8 @@ int	count_lines(int fd, t_map *map)
 			ft_printf("Current line count is: %d\n\n", map->line_count);
 		}
 	}
+	if (buffer[0] != '\n')
+		map->line_count++;
 	return (map->line_count);
 }
 
@@ -86,19 +123,19 @@ int	validate_map(t_map *map)
 
 	if (!map->filename)
 	{
-		ft_printf("Name error\n");
-		return (0);
-	}
-	map->name_length = ft_strlen(map->filename);
-	if (ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
-	{
-		ft_printf("Map name does not end in .ber\n");
+		ft_printf("Error: Name error\n");
 		return (0);
 	}
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
 	{
-		perror("Unable to open map file");
+		perror("Error");
+		return (0);
+	}
+	map->name_length = ft_strlen(map->filename);
+	if (ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
+	{
+		ft_printf("Error: Map name does not end in .ber\n");
 		return (0);
 	}
 	char_count = count_lines(map->fd, map);
@@ -107,7 +144,13 @@ int	validate_map(t_map *map)
 	map->fd = open(map->filename, O_RDONLY);
 	if (!populate_map(map))
 	{
-		ft_printf("Invalid line map length\n\n");
+		ft_printf("Error: Invalid map\n\n");
+		free_map(map);
+		return (0);
+	}
+	if (!check_lines(map))
+	{
+		ft_printf("Error: Invalid map\n\n");
 		free_map(map);
 		return (0);
 	}
