@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/18 16:27:53 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:11:33 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int	check_lines (t_map *map)
 	int	coll_count;
 	int	exit;
 	int	player;
+	char *ptr;
+
+	ptr = map->grid[i];
 
 	i = 0;
 	exit = 0;
@@ -38,24 +41,32 @@ int	check_lines (t_map *map)
 	player = 0;
 	while (i < map->i)
 	{
-		while (*map->grid[i])
+		ptr = map->grid[i];
+		ft_printf("Current line[%d]: %s\n", i, map->grid[i]);
+		while (*ptr)
 		{
-			ft_printf("Current line[%d]: %s\n", i, map->grid[i]);
-			ft_printf("\nCurrent character: %c\n, *map->grid[i]");
-			if (*map->grid[i] == 'C')
+			ft_printf("\nCurrent character: %c\n", *ptr);
+			ft_printf("\nFirst character: %c\n", map->grid[i][0]);
+			ft_printf("\nLast character: %c\n", map->grid[i][map->line_length - 2]);
+			if ((i == 0 || i == map->line_count - 1) && (*ptr != '1' && *ptr != '\n'))
+				return (0);
+			if ((i != 0 && i != map->line_count - 1) && (map->grid[i][0] != '1' || map->grid[i][map->line_length - 2] != '1'))
+				return (0);
+			if (*ptr == 'C')
 				coll_count++;
-			if (*map->grid[i] == 'P')
+			if (*ptr == 'P')
 				player++;
-			if (*map->grid[i] == 'E')
+			if (*ptr == 'E')
 				exit++;
-			map->grid[i]++;
-			ft_printf("We got to here\n\n");
+			ptr++;
 		}
 		i++;
 	}
 	ft_printf("\nCurrent collectible count: %d\n", coll_count);
 	ft_printf("\nCurrent player count: %d\n", player);
 	ft_printf("\nCurrent exit count: %d\n", exit);
+	if (coll_count <= 0 || player != 1 || exit != 1)
+		return (0);
 	return (1);
 }
 
@@ -154,6 +165,8 @@ int	validate_map(t_map *map)
 		free_map(map);
 		return (0);
 	}
+	ft_printf("Current i is: %d\n\n", map->i);
+	ft_printf("Current lc is: %d\n\n", map->line_count);
 	free_map(map);
 	return (1);
 }
