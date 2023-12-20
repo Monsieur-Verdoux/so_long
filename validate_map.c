@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/19 18:57:18 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:07:57 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,12 @@ int	validate_map(t_map *map)
 		return (0);
 	}
 	if (!check_lines(map))
+	{
+		ft_printf("Error: Invalid map\n\n");
+		free_map(map);
+		return (0);
+	}
+	if (!route_validation(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
 		free_map(map);
