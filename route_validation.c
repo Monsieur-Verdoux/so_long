@@ -6,19 +6,62 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:08:18 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/20 17:37:41 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:08:42 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	parse_point(char **grid_c, t_map *map, size_t i, size_t x)
+{
+	if (grid_c[i + 1][x] == '0' || \
+	grid_c[i + 1][x] == 'C' || grid_c[i + 1][x] == 'E')
+		grid_c[i + 1][x] = 'X';
+	if (grid_c[i - 1][x] == '0' || \
+	grid_c[i - 1][x] == 'C' || grid_c[i - 1][x] == 'E')
+		grid_c[i - 1][x] = 'X';
+	if (grid_c[i][x + 1] == '0' || \
+	grid_c[i][x + 1] == 'C' || grid_c[i][x + 1] == 'E')
+		grid_c[i][x + 1] = 'X';
+	if (grid_c[i][x - 1] == '0' || \
+	grid_c[i][x - 1] == 'C' || grid_c[i][x - 1] == 'E')
+		grid_c[i][x - 1] = 'X';
+	grid_c[i][x] = '*';
+}
+
+void	parse_line(char **grid_c, int check, t_map *map)
+{
+	size_t		i;
+	size_t		x;
+
+	x = 0;
+	i = 0;
+	while (check != 0)
+	{
+		check = 0;
+		while (i < map->line_count)
+		{
+			x = 0;
+			while (x < map->line_length)
+			{
+				if (grid_c[i][x] == 'P' || grid_c[i][x] == 'X')
+				{
+					parse_point(grid_c, map, i, x);
+					check = 1;
+				}
+				x++;
+			}
+			i++;
+		}
+		i = 0;
+	}
+}
+
 int	route_validation(t_map *map)
 {
 	char		**grid_c;
 	size_t		i;
-	size_t		x;
 	int			check;
-	int 		j = 0;
 
 	grid_c = (char **)malloc(map->line_count * sizeof(char *));
 	if (!grid_c)
@@ -27,47 +70,11 @@ int	route_validation(t_map *map)
 	while (i < map->line_count)
 	{
 		grid_c[i] = ft_strdup(map->grid[i]);
-		ft_printf("Clone Line[%d]: %s", i, grid_c[i]);
+		ft_printf("Clone Line[%d]: %s\n", i, grid_c[i]);
 		i++;
 	}
-	x = 0;
-	i = 0;
+	parse_line(grid_c, check, map);
 	check = 1;
-	while (check != 0)
-	{
-		check = 0;
-		while (i < map->line_count)
-		{
-			x = 0;
-			ft_printf("\nWe are checking line %d\n", i);
-			while (x < map->line_length)
-			{
-				if (grid_c[i][x] == 'P' || grid_c[i][x] == 'X')
-				{
-					ft_printf("\nWe found P or X at position grid_c[%d][%d]\n", i , x);
-					if (grid_c[i + 1][x] == '0' || grid_c[i + 1][x] == 'C' || grid_c[i + 1][x] == 'E')
-						grid_c[i + 1][x] = 'X';
-					if (grid_c[i - 1][x] == '0' || grid_c[i - 1][x] == 'C' || grid_c[i - 1][x] == 'E')
-						grid_c[i - 1][x] = 'X';
-					if (grid_c[i][x + 1] == '0' || grid_c[i][x + 1] == 'C' || grid_c[i][x + 1] == 'E')
-						grid_c[i][x + 1] = 'X';
-					if (grid_c[i][x - 1] == '0' || grid_c[i][x - 1] == 'C' || grid_c[i][x - 1] == 'E')
-						grid_c[i][x - 1] = 'X';
-					grid_c[i][x] = '*';
-					check = 1;
-					j = 0;
-					while (j < map->line_count)
-					{
-						ft_printf("Line[%d]: %s\n", j, grid_c[j]);
-						j++;
-					}
-				}
-				x++;
-			}
-			i++;
-		}
-		i = 0;
-	}
 	i = 0;
 	while (i < map->line_count)
 	{
@@ -75,11 +82,17 @@ int	route_validation(t_map *map)
 			return (0);
 		i++;
 	}
-	j = 0;
-	while (j < map->line_count)
-					{
-						ft_printf("oLine[%d]: %s\n", j, map->grid[j]);
-						j++;
-					}
+	i = 0;
+	while (i < map->line_count)
+	{
+		ft_printf("OrLine[%d]: %s\n", i, map->grid[i]);
+		i++;
+	}
+	i = 0;
+	while (i < map->line_count)
+	{
+		ft_printf("CLine[%d]: %s\n", i, grid_c[i]);
+		i++;
+	}
 	return (1);
 }
