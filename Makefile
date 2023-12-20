@@ -7,6 +7,7 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/akovalev/.brew/Cel
 SRCS	:= ./so_long.c \
 			validate_map.c \
 			route_validation.c \
+			free_map.c \
 			
 OBJS	:= ${SRCS:.c=.o} libft/libft.a
 

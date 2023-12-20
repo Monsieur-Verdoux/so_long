@@ -6,24 +6,11 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/20 17:07:57 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:06:46 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	free_map(t_map *map)
-{
-	int	row;
-
-	row = 0;
-	while (row < map->line_count)
-	{
-		free(map->grid[row]);
-		row++;
-	}
-	free(map->grid);
-}
 
 int	check_lines(t_map *map)
 {
@@ -146,21 +133,21 @@ int	validate_map(t_map *map)
 	if (!populate_map(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		free_map(map);
+		free_map(map, map->grid);
 		return (0);
 	}
 	if (!check_lines(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		free_map(map);
+		free_map(map, map->grid);
 		return (0);
 	}
 	if (!route_validation(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		free_map(map);
+		free_map(map, map->grid);
 		return (0);
 	}
-	free_map(map);
+	free_map(map, map->grid);
 	return (1);
 }
