@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/19 18:46:15 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:36:23 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ typedef struct s_map
 }	t_map;
 
 int	validate_map(t_map *map);
+int	route_validation(t_map *map);
 
 #endif

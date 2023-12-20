@@ -4,7 +4,10 @@ LIBMLX	:= ./lib/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/akovalev/.brew/Cellar/glfw/3.3.8/lib -lglfw
-SRCS	:= ./so_long.c validate_map.c
+SRCS	:= ./so_long.c \
+			validate_map.c \
+			route_validation.c \
+			
 OBJS	:= ${SRCS:.c=.o} libft/libft.a
 
 all: libmlx $(NAME)
