@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:29:56 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 19:07:15 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:39:51 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,7 @@ void	draw_map(mlx_t *mlx, t_map *map, t_img *img)
 	}
 	mlx_image_to_window(mlx, img->img_pl, map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 	map->moves = 0;
+	map->col_col = 0;
+	map->n = 0;
 	ft_printf("We should have drawn the map\n");
 }

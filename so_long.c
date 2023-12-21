@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:40:33 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 18:52:34 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:17:03 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, const char **argv)
 	mlx = mlx_init(1366, 768, "so_long", true);
 	if (!mlx)
 		exit(EXIT_FAILURE);
+	map.mlx = mlx;
 	ft_printf("We are about to draw the map\n");
 	draw_map(mlx, &map, &image);
 	mlx_key_hook(mlx, captain_hook, &map);

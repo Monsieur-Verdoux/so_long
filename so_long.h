@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 18:52:35 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:39:34 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_map
 	int			moves;
 	int			x;
 	int			y;
+	int			n;
+	mlx_t		*mlx;
 	t_img		*img;
 }	t_map;
 
