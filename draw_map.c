@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:29:56 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 18:55:00 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:07:15 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_map(mlx_t *mlx, t_map *map, t_img *img)
 
 	mlx_resize_image(img->img_free, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_obs, map->tile_sq, map->tile_sq);
-	mlx_resize_image(img->img_c, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_c, map->tile_sq / 1.5, map->tile_sq / 1.5);
 	mlx_resize_image(img->img_e, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
 	ft_printf("We are about to draw the map\n");
@@ -68,13 +68,13 @@ void	draw_map(mlx_t *mlx, t_map *map, t_img *img)
 				map->pl_x = map->x;
 				map->pl_y = map->y;
 				mlx_image_to_window(mlx, img->img_free, map->x * map->tile_sq, map->y * map->tile_sq);
-				mlx_image_to_window(mlx, img->img_pl, map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 			}
 			map->x++;
 		}
 		map->y++;
 		map->x = 0;
 	}
+	mlx_image_to_window(mlx, img->img_pl, map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
 	map->moves = 0;
 	ft_printf("We should have drawn the map\n");
 }
