@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:29:56 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 18:18:52 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:14:05 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	handle_images(mlx_t *mlx, t_map *map, t_img *img)
 	img->txt_obs = mlx_load_png("./assets/wall.png");
 	img->txt_c = mlx_load_png("./assets/BloatedBedbugIdleSide.png");
 	img->txt_e = mlx_load_png("./assets/exit.png");
+	img->txt_e_o = mlx_load_png("./assets/exit1.png");
 	img->txt_pl = mlx_load_png("./assets/CarnivorousWormIdleSide.png");
 	ft_printf("We finished loading the images\n");
 	ft_printf("We are about to transfer textures to images\n");
@@ -36,6 +37,7 @@ void	handle_images(mlx_t *mlx, t_map *map, t_img *img)
 	img->img_obs = mlx_texture_to_image(mlx, img->txt_obs);
 	img->img_c = mlx_texture_to_image(mlx, img->txt_c);
 	img->img_e = mlx_texture_to_image(mlx, img->txt_e);
+	img->img_e_o = mlx_texture_to_image(mlx, img->txt_e_o);
 	img->img_pl = mlx_texture_to_image(mlx, img->txt_pl);
 	ft_printf("We finished transfering to images\n");
 	ft_printf("We are about to resize the images\n");
@@ -43,6 +45,7 @@ void	handle_images(mlx_t *mlx, t_map *map, t_img *img)
 	mlx_resize_image(img->img_obs, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_c, map->tile_sq / 1.5, map->tile_sq / 1.5);
 	mlx_resize_image(img->img_e, map->tile_sq, map->tile_sq);
+	mlx_resize_image(img->img_e_o, map->tile_sq, map->tile_sq);
 	mlx_resize_image(img->img_pl, map->tile_sq, map->tile_sq);
 }
 
@@ -63,8 +66,12 @@ void	draw_point(mlx_t *mlx, t_map *map, t_img *img)
 				map->y * map->tile_sq + map->tile_l / 8);
 	}
 	else if (map->grid[map->y][map->x] == 'E')
+	{
 		mlx_image_to_window(mlx, img->img_e, \
 			map->x * map->tile_sq, map->y * map->tile_sq);
+		map->ex_x = map->x;
+		map->ex_y = map->y;
+	}
 	else if (map->grid[map->y][map->x] == 'P')
 	{
 		map->pl_x = map->x;

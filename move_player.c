@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:06:05 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 16:53:43 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 19:07:16 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void	move_player(t_map *map, t_img *img, char c)
 		ft_printf("%d out of %d collectibles gathered\n", \
 			map->col_col, map->col_c);
 		if (map->col_col == map->col_c)
+		{
 			ft_printf("We may now exit\n");
+			mlx_image_to_window(map->mlx, img->img_e_o, \
+			map->ex_x * map->tile_sq, map->ex_y * map->tile_sq);
+		}
 	}
 	if (map->grid[map->pl_y][map->pl_x] == 'E' && map->col_col == map->col_c)
 	{
