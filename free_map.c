@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:20:29 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/20 18:58:01 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:30:34 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	free_map(t_map *map, char **grid)
 	{
 		printf("Current row being freed: %s\n", grid[row]);
 		free(grid[row]);
+		grid[row] = NULL;
 		row++;
 	}
 	free(grid);
+	grid = NULL;
 }
