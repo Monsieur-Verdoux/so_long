@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 19:39:34 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:56:57 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ typedef struct s_img
 	mlx_texture_t	*txt_obs;
 	mlx_texture_t	*txt_c;
 	mlx_texture_t	*txt_e;
+	mlx_texture_t	*txt_e_o;
 	mlx_texture_t	*txt_pl;
 	mlx_image_t		*img_free;
 	mlx_image_t		*img_obs;
 	mlx_image_t		*img_c;
 	mlx_image_t		*img_e;
+	mlx_image_t		*img_e_o;
 	mlx_image_t		*img_pl;
 }	t_img;
 
@@ -54,6 +56,8 @@ typedef struct s_map
 	int			tile_sq;
 	int			pl_x;
 	int			pl_y;
+	int			ex_x;
+	int			ex_y;
 	int			moves;
 	int			x;
 	int			y;
