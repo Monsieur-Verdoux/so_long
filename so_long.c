@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:40:33 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 19:17:03 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 17:36:15 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ int	main(int argc, const char **argv)
 	mlx_terminate(mlx);
 	free_map(&map, map.grid);
 	exit(EXIT_SUCCESS);
-
-	// image = mlx_new_image(mlx, 128, 128);
+}
+// image = mlx_new_image(mlx, 128, 128);
 	// ft_memset(image->pixels, 255, image->width * image->height * BPP);
 	// mlx_image_to_window(mlx, image, 0, 0);
 	// mlx_loop(mlx);
 	// mlx_terminate(mlx);
 	// return (EXIT_SUCCESS);
-}
