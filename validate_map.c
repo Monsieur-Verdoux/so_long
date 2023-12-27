@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/21 18:52:36 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:12:04 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	populate_map(t_map *map)
 	while (i < map->line_count)
 	{
 		map->grid[i] = get_next_line(map->fd);
-		ft_printf("Line[%d]: %s\n", i, map->grid[i]);
 		i++;
 	}
 	i = 0;
@@ -133,21 +132,17 @@ int	validate_map(t_map *map)
 	if (!populate_map(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		//free_map(map, map->grid);
 		return (0);
 	}
 	if (!check_lines(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		//free_map(map, map->grid);
 		return (0);
 	}
 	if (!route_validation(map))
 	{
 		ft_printf("Error: Invalid map\n\n");
-		//free_map(map, map->grid);
 		return (0);
 	}
-	//free_map(map, map->grid);
 	return (1);
 }
