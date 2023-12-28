@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:29:56 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 19:14:05 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 17:08:51 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	sizing(t_map *map)
 {
-	map->tile_l = 1366 / map->line_length;
-	map->tile_w = 768 / map->line_count;
+	map->tile_l = map->wnd_w / (map->line_length - 1);
+	map->tile_w = map->wnd_h / map->line_count;
 	if (map->tile_l <= map->tile_w)
 		map->tile_sq = map->tile_l;
 	else
@@ -71,13 +71,28 @@ void	draw_point(mlx_t *mlx, t_map *map, t_img *img)
 			map->x * map->tile_sq, map->y * map->tile_sq);
 		map->ex_x = map->x;
 		map->ex_y = map->y;
+		map->grid[map->y][map->x] = 'e';
 	}
 	else if (map->grid[map->y][map->x] == 'P')
 	{
 		map->pl_x = map->x;
 		map->pl_y = map->y;
 		mlx_image_to_window(mlx, img->img_free, \
+			map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
+		map->grid[map->y][map->x] = 'p';
+	}
+	else if (map->grid[map->y][map->x] == 'p')
+	{
+		mlx_image_to_window(mlx, img->img_free, \
 			map->x * map->tile_sq, map->y * map->tile_sq);
+	}
+	else if (map->grid[map->y][map->x] == 'e')
+	{
+		mlx_image_to_window(mlx, img->img_e, \
+			map->x * map->tile_sq, map->y * map->tile_sq);
+		if (map->col_col == map->col_c)
+			mlx_image_to_window(mlx, img->img_e_o, \
+				map->x * map->tile_sq, map->y * map->tile_sq);
 	}
 }
 
@@ -101,13 +116,9 @@ void	draw_map(mlx_t *mlx, t_map *map, t_img *img)
 	map->y = 0;
 	ft_printf("We are about to determine the map size\n");
 	sizing(map);
-	handle_images(mlx, map, img);
 	ft_printf("We are about to draw the map\n");
 	draw_lines(mlx, map, img);
 	mlx_image_to_window(mlx, img->img_pl, \
 		map->pl_x * map->tile_sq, map->pl_y * map->tile_sq);
-	map->moves = 0;
-	map->col_col = 0;
-	map->n = 0;
 	ft_printf("We should have drawn the map\n");
 }

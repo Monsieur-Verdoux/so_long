@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 18:56:57 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:37:38 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "libft/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
-
-# define BPP sizeof(int32_t)
 
 typedef struct s_img
 {
@@ -62,6 +60,8 @@ typedef struct s_map
 	int			x;
 	int			y;
 	int			n;
+	int			wnd_w;
+	int			wnd_h;
 	mlx_t		*mlx;
 	t_img		*img;
 }	t_map;
@@ -70,7 +70,10 @@ int		validate_map(t_map *map);
 int		route_validation(t_map *map);
 void	free_map(t_map *map, char **grid);
 void	draw_map(mlx_t *mlx, t_map *map, t_img *img);
-void	captain_hook(mlx_key_data_t keydata, void *param);
+void	movement_hook(mlx_key_data_t keydata, void *param);
+void	resize_hook(int32_t width, int32_t height, void *param);
 void	move_player(t_map *map, t_img *img, char c);
+void	handle_images(mlx_t *mlx, t_map *map, t_img *img);
+void	sizing(t_map *map);
 
 #endif
