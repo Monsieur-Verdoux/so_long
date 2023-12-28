@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 15:55:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 15:55:42 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:06:19 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	movement_hook(mlx_key_data_t keydata, void *param)
 	map = (t_map *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		ft_printf("ESC pressed\n");
 		free_map(map, map->grid);
 		exit(EXIT_SUCCESS);
 	}

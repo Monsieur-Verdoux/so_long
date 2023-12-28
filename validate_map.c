@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 17:24:17 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:04:41 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	check_lines(t_map *map)
 	while (i < map->line_count)
 	{
 		ptr = map->grid[i];
-		ft_printf("Current line[%d]: %s\n", i, map->grid[i]);
 		while (*ptr)
 		{
 			if ((i == 0 || i == map->line_count - 1) \
@@ -74,10 +73,6 @@ int	count_lines(int fd, t_map *map)
 	char	buffer[1];
 	int		bytes_read;
 
-	map->ex_c = 0;
-	map->col_c = 0;
-	map->pl_c = 0;
-	map->line_count = 0;
 	bytes_read = 1;
 	while (bytes_read != 0)
 	{
@@ -132,7 +127,6 @@ int	validate_map(t_map *map)
 	if (!basic_checks (map))
 		return (0);
 	char_count = count_lines(map->fd, map);
-	//ft_printf("Line count is: %d\n", map->line_count);
 	close(map->fd);
 	map->fd = open(map->filename, O_RDONLY);
 	if (!populate_map(map))
@@ -150,5 +144,6 @@ int	validate_map(t_map *map)
 		ft_printf("Error: No possible route\n");
 		return (0);
 	}
+	close(map->fd);
 	return (1);
 }
