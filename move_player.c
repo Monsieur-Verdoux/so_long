@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 17:06:05 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 19:17:33 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 16:20:05 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	move_player(t_map *map, t_img *img, char c)
 			map->ex_x * map->tile_sq, map->ex_y * map->tile_sq);
 		}
 	}
-	if (map->grid[map->pl_y][map->pl_x] == 'E' && map->col_col == map->col_c)
+	if (map->grid[map->pl_y][map->pl_x] == 'e' && map->col_col == map->col_c)
 	{
 		ft_printf("Victory! Total movements: %d\n", map->moves);
 		free_map(map, map->grid);

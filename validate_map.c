@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/27 16:12:04 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 17:24:17 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ int	count_lines(int fd, t_map *map)
 			map->ex_c++;
 		if (bytes_read > 0 && buffer[0] == '\n')
 			map->line_count++;
+		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
+			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
+		{
+			ft_printf("Error: Invalid characters: %c", buffer[0]);
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (buffer[0] != '\n')
 		map->line_count++;
@@ -126,22 +132,22 @@ int	validate_map(t_map *map)
 	if (!basic_checks (map))
 		return (0);
 	char_count = count_lines(map->fd, map);
-	ft_printf("Line count is: %d\n", map->line_count);
+	//ft_printf("Line count is: %d\n", map->line_count);
 	close(map->fd);
 	map->fd = open(map->filename, O_RDONLY);
 	if (!populate_map(map))
 	{
-		ft_printf("Error: Invalid map\n\n");
+		ft_printf("Error: Invalid shape\n");
 		return (0);
 	}
 	if (!check_lines(map))
 	{
-		ft_printf("Error: Invalid map\n\n");
+		ft_printf("Error: Lines are invalid\n");
 		return (0);
 	}
 	if (!route_validation(map))
 	{
-		ft_printf("Error: Invalid map\n\n");
+		ft_printf("Error: No possible route\n");
 		return (0);
 	}
 	return (1);
