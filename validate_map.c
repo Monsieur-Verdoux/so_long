@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 18:04:41 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:20:23 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,13 @@ int	populate_map(t_map *map)
 	}
 	i = 0;
 	map->line_length = ft_strlen(map->grid[i]);
-	while (i < map->line_count - 1)
+	while (i < map->line_count)
 	{
 		line_length = ft_strlen(map->grid[i]);
 		if (line_length != map->line_length)
 			return (0);
 		i++;
 	}
-	line_length = ft_strlen(map->grid[i]);
-	if (line_length != map->line_length - 1)
-		return (0);
 	return (1);
 }
 
@@ -88,12 +85,10 @@ int	count_lines(int fd, t_map *map)
 		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
 			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
 		{
-			ft_printf("Error: Invalid characters: %c", buffer[0]);
+			ft_printf("Error: Invalid characters: %c\n", buffer[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
-	if (buffer[0] != '\n')
-		map->line_count++;
 	return (map->line_count);
 }
 
