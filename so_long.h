@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 16:37:38 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:18:53 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef struct s_map
 	int			bytes_read;
 	const char	*filename;
 	char		**grid;
-	size_t		line_count;
-	size_t		line_length;
+	int			line_count;
+	int			line_length;
 	int			col_c;
 	int			pl_c;
 	int			ex_c;
@@ -57,6 +57,7 @@ typedef struct s_map
 	int			ex_x;
 	int			ex_y;
 	int			moves;
+	int			check;
 	int			x;
 	int			y;
 	int			n;

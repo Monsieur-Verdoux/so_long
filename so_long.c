@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:40:33 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 17:55:44 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:18:53 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	initialize_map_values(t_map *map)
 	map->moves = 0;
 	map->col_col = 0;
 	map->n = 0;
+	map->check = 1;
 }
 
 int	main(int argc, const char **argv)
@@ -58,7 +59,6 @@ int	main(int argc, const char **argv)
 	if (!mlx)
 		exit(EXIT_FAILURE);
 	map.mlx = mlx;
-	sizing(&map);
 	handle_images(mlx, &map, &image);
 	draw_map(mlx, &map, &image);
 	mlx_key_hook(mlx, movement_hook, &map);
@@ -68,9 +68,3 @@ int	main(int argc, const char **argv)
 	free_map(&map, map.grid);
 	exit(EXIT_SUCCESS);
 }
-// image = mlx_new_image(mlx, 128, 128);
-	// ft_memset(image->pixels, 255, image->width * image->height * BPP);
-	// mlx_image_to_window(mlx, image, 0, 0);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
-	// return (EXIT_SUCCESS);

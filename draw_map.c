@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:29:56 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 17:55:40 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:18:49 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void	sizing(t_map *map)
 
 void	handle_images(mlx_t *mlx, t_map *map, t_img *img)
 {
+	sizing(map);
 	img->txt_free = mlx_load_png("./assets/free.png");
-	img->txt_obs = mlx_load_png("./assets/wall.png");
-	img->txt_c = mlx_load_png("./assets/BloatedBedbugIdleSide.png");
-	img->txt_e = mlx_load_png("./assets/exit.png");
-	img->txt_e_o = mlx_load_png("./assets/exit1.png");
-	img->txt_pl = mlx_load_png("./assets/CarnivorousWormIdleSide.png");
+	img->txt_obs = mlx_load_png("./assets/obstacle.png");
+	img->txt_c = mlx_load_png("./assets/collectible.png");
+	img->txt_e = mlx_load_png("./assets/exit_closed.png");
+	img->txt_e_o = mlx_load_png("./assets/exit_open.png");
+	img->txt_pl = mlx_load_png("./assets/player.png");
 	img->img_free = mlx_texture_to_image(mlx, img->txt_free);
 	img->img_obs = mlx_texture_to_image(mlx, img->txt_obs);
 	img->img_c = mlx_texture_to_image(mlx, img->txt_c);
@@ -85,8 +86,8 @@ void	draw_point(mlx_t *mlx, t_map *map, t_img *img)
 		mlx_image_to_window(mlx, img->img_free, \
 			map->x * map->tile_sq, map->y * map->tile_sq);
 		mlx_image_to_window(mlx, img->img_c, \
-			map->x * map->tile_sq + map->tile_w / 8, \
-				map->y * map->tile_sq + map->tile_l / 8);
+			map->x * map->tile_sq, \
+				map->y * map->tile_sq);
 	}
 	else
 		(draw_player_and_exit(mlx, map, img));

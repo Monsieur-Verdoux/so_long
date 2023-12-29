@@ -1,16 +1,17 @@
 NAME	:= so_long
-CFLAGS	:= -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/akovalev/.brew/Cellar/glfw/3.3.8/lib -lglfw
-SRCS	:= ./so_long.c \
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/$(USER)/.brew/Cellar/glfw/3.3.8/lib -lglfw
+
+SRCS	:=	so_long.c \
 			validate_map.c \
 			route_validation.c \
 			free_map.c \
 			draw_map.c \
 			captain_hook.c \
-			move_player.c \
+			move_player.c
 			
 OBJS	:= ${SRCS:.c=.o} libft/libft.a
 
@@ -31,6 +32,7 @@ libft/libft.a:
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(LIBMLX)/build
+	@rm -f libft/.bonus;
 
 fclean: clean
 	@rm -rf $(NAME)
