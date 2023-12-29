@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/28 18:20:23 by akovalev         ###   ########.fr       */
+/*   Updated: 2023/12/29 15:18:54 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int	check_lines(t_map *map)
 
 int	populate_map(t_map *map)
 {
-	size_t		line_length;
-	size_t		i;
+	int		line_length;
+	int		i;
 
+	map->fd = open(map->filename, O_RDONLY);
 	map->grid = (char **)malloc(map->line_count * sizeof(char *));
 	if (!map->grid)
 		return (0);
@@ -62,10 +63,11 @@ int	populate_map(t_map *map)
 			return (0);
 		i++;
 	}
+	close(map->fd);
 	return (1);
 }
 
-int	count_lines(int fd, t_map *map)
+void	count_lines(int fd, t_map *map)
 {
 	char	buffer[1];
 	int		bytes_read;
@@ -74,6 +76,8 @@ int	count_lines(int fd, t_map *map)
 	while (bytes_read != 0)
 	{
 		bytes_read = read(fd, buffer, 1);
+		if (bytes_read < 0)
+			exit(EXIT_FAILURE);
 		if (buffer[0] == 'C')
 			map->col_c++;
 		if (buffer[0] == 'P')
@@ -89,7 +93,7 @@ int	count_lines(int fd, t_map *map)
 			exit(EXIT_FAILURE);
 		}
 	}
-	return (map->line_count);
+	close(map->fd);
 }
 
 int	basic_checks(t_map *map)
@@ -116,14 +120,9 @@ int	basic_checks(t_map *map)
 
 int	validate_map(t_map *map)
 {
-	size_t	char_count;
-	size_t	line_count;
-
 	if (!basic_checks (map))
 		return (0);
-	char_count = count_lines(map->fd, map);
-	close(map->fd);
-	map->fd = open(map->filename, O_RDONLY);
+	count_lines(map->fd, map);
 	if (!populate_map(map))
 	{
 		ft_printf("Error: Invalid shape\n");
@@ -139,6 +138,5 @@ int	validate_map(t_map *map)
 		ft_printf("Error: No possible route\n");
 		return (0);
 	}
-	close(map->fd);
 	return (1);
 }
