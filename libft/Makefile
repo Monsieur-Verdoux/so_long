@@ -6,7 +6,7 @@
 #    By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/18 15:40:30 by akovalev          #+#    #+#              #
-#    Updated: 2023/12/14 15:04:13 by akovalev         ###   ########.fr        #
+#    Updated: 2024/01/02 15:15:33 by akovalev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRC = 	ft_isalnum.c \
 		ft_unsigned_pf.c \
 		ft_hex_pf.c \
 		ft_ptr_pf.c \
-		get_next_line_bonus.c 
+		get_next_line_bonus.c
+		
 NAME = libft.a
 
 OBJ = $(SRC:.c=.o)
@@ -73,13 +74,13 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME) 
 
 %.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+	@cc $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
-	ar -crs $(NAME) $(OBJ)
+	@ar -crs $(NAME) $(OBJ)
 
 clean:
-	rm -f $(OBJ) $(BONUS_OBJ)
+	@rm -f $(OBJ) $(BONUS_OBJ)
 	@rm -rf .bonus
 
 fclean:	clean
@@ -90,7 +91,7 @@ re: fclean all
 bonus: .bonus
 
 .bonus: $(NAME) $(BONUS_OBJ)
-	ar -crs $(NAME) $(BONUS_OBJ)
+	@ar -crs $(NAME) $(BONUS_OBJ)
 	@touch .bonus
 
 .PHONY: clean fclean all re bonus

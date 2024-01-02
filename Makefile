@@ -2,7 +2,7 @@ NAME	:= so_long
 CFLAGS	:= -Wall -Wextra -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ./MLX42
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
+HEADERS	:= -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/$(USER)/.brew/Cellar/glfw/3.3.8/lib -lglfw
 
 SRCS	:=	so_long.c \
@@ -21,18 +21,18 @@ libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 libft/libft.a:
-	$(MAKE) -C libft/ all bonus
+	@$(MAKE) -C libft/ all
 
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(LIBMLX)/build
-	@rm -f libft/.bonus;
+	@$(MAKE) -C libft/ clean
 
 fclean: clean
 	@rm -rf $(NAME)
