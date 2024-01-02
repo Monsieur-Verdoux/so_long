@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/29 15:18:54 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 15:02:37 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	basic_checks(t_map *map)
 int	validate_map(t_map *map)
 {
 	if (!basic_checks (map))
-		return (0);
+		exit(EXIT_FAILURE);
 	count_lines(map->fd, map);
 	if (!populate_map(map))
 	{
