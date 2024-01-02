@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:40:33 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/29 15:18:53 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:11:12 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	check_arguments(int argc, const char **argv, t_map *map)
 {
 	if (argc <= 1)
 	{
-		ft_printf("Error: no map file to read\n");
+		ft_printf("Error\nNo map file to read\n");
 		exit(EXIT_FAILURE);
 	}
 	if (argc > 2)
 	{
-		ft_printf("Error: please only input one map file\n");
+		ft_printf("Error\nPlease only input one map file\n");
 		exit(EXIT_FAILURE);
 	}
 	map->filename = argv[1];

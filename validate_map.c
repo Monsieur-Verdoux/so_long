@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2024/01/02 15:02:37 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:14:51 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	populate_map(t_map *map)
 	map->fd = open(map->filename, O_RDONLY);
 	map->grid = (char **)malloc(map->line_count * sizeof(char *));
 	if (!map->grid)
-		return (0);
+		malloc_error(map, map->grid, 0);
 	i = 0;
 	while (i < map->line_count)
 	{
@@ -89,7 +89,7 @@ void	count_lines(int fd, t_map *map)
 		if (buffer[0] != '\n' && buffer[0] != '0' && buffer[0] != '1' \
 			&& buffer[0] != 'C' && buffer[0] != 'P' && buffer[0] != 'E')
 		{
-			ft_printf("Error: Invalid characters: %c\n", buffer[0]);
+			ft_printf("Error\nInvalid characters: %c\n", buffer[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -100,19 +100,19 @@ int	basic_checks(t_map *map)
 {
 	if (!map->filename)
 	{
-		ft_printf("Error: Name error\n");
+		ft_printf("Error\nName error\n");
 		return (0);
 	}
 	map->fd = open(map->filename, O_RDONLY);
 	if (map->fd == -1)
 	{
-		perror("Error");
+		perror("Error\n");
 		return (0);
 	}
 	map->name_length = ft_strlen(map->filename);
 	if (ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
 	{
-		ft_printf("Error: Map name does not end in .ber\n");
+		ft_printf("Error\nMap name does not end in .ber\n");
 		return (0);
 	}
 	return (1);
@@ -125,17 +125,17 @@ int	validate_map(t_map *map)
 	count_lines(map->fd, map);
 	if (!populate_map(map))
 	{
-		ft_printf("Error: Invalid shape\n");
+		ft_printf("Error\nInvalid shape\n");
 		return (0);
 	}
 	if (!check_lines(map))
 	{
-		ft_printf("Error: Lines are invalid\n");
+		ft_printf("Error\nLines are invalid\n");
 		return (0);
 	}
 	if (!route_validation(map))
 	{
-		ft_printf("Error: No possible route\n");
+		ft_printf("Error\nNo possible route\n");
 		return (0);
 	}
 	return (1);

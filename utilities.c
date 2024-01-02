@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_map.c                                         :+:      :+:    :+:   */
+/*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:20:29 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/29 15:18:50 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:11:19 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,12 @@ void	free_map(t_map *map, char **grid)
 	free(grid);
 	grid = NULL;
 }
+
+void	malloc_error(t_map *map, char **grid, int check)
+{
+	ft_printf("Error\nMalloc error\n");
+	if (check == 1)
+		free_map(map, grid);
+	exit(EXIT_FAILURE);
+}
+
