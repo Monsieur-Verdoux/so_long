@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 17:08:18 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/29 15:18:52 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:10:08 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	route_validation(t_map *map)
 
 	grid_c = (char **)malloc(map->line_count * sizeof(char *));
 	if (!grid_c)
-		return (0);
+		malloc_error(map, map->grid, 1);
 	i = 0;
 	while (i < map->line_count)
 	{

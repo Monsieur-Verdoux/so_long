@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:41:10 by akovalev          #+#    #+#             */
-/*   Updated: 2023/12/29 15:18:53 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:12:15 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	resize_hook(int32_t width, int32_t height, void *param);
 void	move_player(t_map *map, t_img *img, char c);
 void	handle_images(mlx_t *mlx, t_map *map, t_img *img);
 void	sizing(t_map *map);
+void	malloc_error(t_map *map, char **grid, int check);
 
 #endif

@@ -8,7 +8,7 @@ LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -pthread -lm -L/Users/$(USER)/.brew/Cell
 SRCS	:=	so_long.c \
 			validate_map.c \
 			route_validation.c \
-			free_map.c \
+			utilities.c \
 			draw_map.c \
 			captain_hook.c \
 			move_player.c
