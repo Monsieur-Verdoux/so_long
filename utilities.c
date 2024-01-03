@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 18:20:29 by akovalev          #+#    #+#             */
-/*   Updated: 2024/01/02 16:11:19 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:45:16 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ void	malloc_error(t_map *map, char **grid, int check)
 		free_map(map, grid);
 	exit(EXIT_FAILURE);
 }
-

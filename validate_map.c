@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:04:37 by akovalev          #+#    #+#             */
-/*   Updated: 2024/01/02 16:14:51 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:41:26 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	populate_map(t_map *map)
 	int		line_length;
 	int		i;
 
-	map->fd = open(map->filename, O_RDONLY);
 	map->grid = (char **)malloc(map->line_count * sizeof(char *));
 	if (!map->grid)
 		malloc_error(map, map->grid, 0);
@@ -67,7 +66,7 @@ int	populate_map(t_map *map)
 	return (1);
 }
 
-void	count_lines(int fd, t_map *map)
+int	count_lines(int fd, t_map *map)
 {
 	char	buffer[1];
 	int		bytes_read;
@@ -77,7 +76,7 @@ void	count_lines(int fd, t_map *map)
 	{
 		bytes_read = read(fd, buffer, 1);
 		if (bytes_read < 0)
-			exit(EXIT_FAILURE);
+			return (0);
 		if (buffer[0] == 'C')
 			map->col_c++;
 		if (buffer[0] == 'P')
@@ -93,7 +92,7 @@ void	count_lines(int fd, t_map *map)
 			exit(EXIT_FAILURE);
 		}
 	}
-	close(map->fd);
+	return (1);
 }
 
 int	basic_checks(t_map *map)
@@ -103,18 +102,25 @@ int	basic_checks(t_map *map)
 		ft_printf("Error\nName error\n");
 		return (0);
 	}
-	map->fd = open(map->filename, O_RDONLY);
-	if (map->fd == -1)
-	{
-		perror("Error\n");
-		return (0);
-	}
 	map->name_length = ft_strlen(map->filename);
 	if (ft_strncmp(&map->filename[map->name_length - 4], ".ber", 4))
 	{
 		ft_printf("Error\nMap name does not end in .ber\n");
 		return (0);
 	}
+	map->fd = open(map->filename, O_RDONLY);
+	if (map->fd == -1)
+	{
+		perror("Error\n");
+		close(map->fd);
+		return (0);
+	}
+	if (!count_lines(map->fd, map))
+	{
+		ft_printf("Error\nRead error\n");
+		return (0);
+	}
+	close(map->fd);
 	return (1);
 }
 
@@ -122,7 +128,13 @@ int	validate_map(t_map *map)
 {
 	if (!basic_checks (map))
 		exit(EXIT_FAILURE);
-	count_lines(map->fd, map);
+	map->fd = open(map->filename, O_RDONLY);
+	if (map->fd == -1)
+	{
+		perror("Error\n");
+		close(map->fd);
+		exit(EXIT_FAILURE);
+	}
 	if (!populate_map(map))
 	{
 		ft_printf("Error\nInvalid shape\n");

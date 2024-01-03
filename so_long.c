@@ -6,7 +6,7 @@
 /*   By: akovalev <akovalev@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 14:40:33 by akovalev          #+#    #+#             */
-/*   Updated: 2024/01/02 16:11:12 by akovalev         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:22:08 by akovalev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int	main(int argc, const char **argv)
 	map.img = &image;
 	check_arguments (argc, argv, &map);
 	initialize_map_values(&map);
+	mlx = mlx_init(1366, 768, "so_long", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	map.mlx = mlx;
 	if (!validate_map(&map))
 	{
 		free_map(&map, map.grid);
 		exit(EXIT_FAILURE);
 	}
-	mlx = mlx_init(1366, 768, "so_long", true);
-	if (!mlx)
-		exit(EXIT_FAILURE);
-	map.mlx = mlx;
 	handle_images(mlx, &map, &image);
 	draw_map(mlx, &map, &image);
 	mlx_key_hook(mlx, movement_hook, &map);
