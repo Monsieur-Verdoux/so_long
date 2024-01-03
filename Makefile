@@ -15,7 +15,7 @@ SRCS	:=	so_long.c \
 			
 OBJS	:= ${SRCS:.c=.o} libft/libft.a
 
-all: libmlx $(NAME)
+all: $(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -23,7 +23,7 @@ libmlx:
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) libmlx
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 libft/libft.a:
