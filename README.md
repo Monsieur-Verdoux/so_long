@@ -2,7 +2,7 @@
 
 <img width="1368" alt="Screen Shot 2024-04-25 at 6 06 22 PM" src="https://github.com/Monsieur-Verdoux/so_long/assets/140087779/a1f0c3ed-7891-4dd6-a6b6-a0f015b85718">
 
-This simple game is my first graphics project at Hive Helsinki, utilizin the MLX42 library - https://github.com/codam-coding-college/MLX42
+This simple game is my first graphics project at Hive Helsinki, utilizing the MLX42 library - https://github.com/codam-coding-college/MLX42
 The goal of the game is to pick up every collectible on the map in the fewest number of moves before exiting. 
 
 The project's two main parts were:
