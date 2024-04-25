@@ -1,5 +1,7 @@
 # so_long
 
+<img width="1368" alt="Screen Shot 2024-04-25 at 6 06 22 PM" src="https://github.com/Monsieur-Verdoux/so_long/assets/140087779/a1f0c3ed-7891-4dd6-a6b6-a0f015b85718">
+
 This simple game is my first graphics project at Hive Helsinki, utilizin the MLX42 library - https://github.com/codam-coding-college/MLX42
 The goal of the game is to pick up every collectible on the map in the fewest number of moves before exiting. 
 
@@ -22,10 +24,9 @@ The project's two main parts were:
 - There has to be a valid path in the map
 
 An example of a valid map:
+
 ```1111111111111
 10010000000C1
 1000011111001
 1P0011E000001
 1111111111111```
-
-<img width="1368" alt="Screen Shot 2024-04-25 at 6 06 22 PM" src="https://github.com/Monsieur-Verdoux/so_long/assets/140087779/60a74670-c0a1-4446-8563-986de2da8f5b">
